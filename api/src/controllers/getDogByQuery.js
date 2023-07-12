@@ -10,6 +10,7 @@ async function getDogByQuery(req, res) {
 
         const { data } = await axios.get(URL)
         const apiDogs = data.filter((dog) => dog.name.toLowerCase().includes(name.toLowerCase()))
+
         if (apiDogs.length > 0) {
             const apiDogsRes = transformDogByName(apiDogs)
             return res.status(200).json({ dog: apiDogsRes })

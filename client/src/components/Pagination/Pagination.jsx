@@ -22,25 +22,39 @@ export default function Pagination() {
 
     const allDogs = useSelector(state => state.allDogs)
     const dogShown = allDogs.slice(firstIDog, lastIDog)
-    if (!allDogs.length) return <BgLoader />
-    const goPrev = () => {
+
+    function goFirst() {
+        if (currentPage > 1) {
+            setCurrentPage(1)
+        }
+    }
+    function goPrev() {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1)
         }
     }
-    const goNext = () => {
+    function goNext() {
         const totalPages = Math.ceil(allDogs.length / dogPerPage)
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1)
         }
     }
+    function goLast() {
+        const totalPages = Math.ceil(allDogs.length / dogPerPage)
+        if (totalPages) {
+            setCurrentPage(totalPages)
+        }
+    }
+    if (!allDogs.length) return <BgLoader />
     return (
         <>
             <Cards allDogs={dogShown} />
             <div className={styles.navButtons}>
-                <button onClick={goPrev}>Prev</button>
-                <p>{currentPage}</p>
-                <button onClick={goNext}>Next</button>
+                <button onClick={goFirst} className={styles.button}>First</button>
+                <button onClick={goPrev} className={styles.button}>Prev</button>
+                <p className={styles.currentPage}>{currentPage}</p>
+                <button onClick={goNext} className={styles.button}>Next</button>
+                <button onClick={goLast} className={styles.button}>Last</button>
             </div>
         </>
     )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { useDispatch, useSelector } from "react-redux"
 import { filterTemp, getAllTemps } from '../../redux/Actions'
@@ -9,8 +9,11 @@ export default function TempFilter() {
     const [searchedTemp, setSearchedTemp] = useState("")
     const [recommendation, setRecommendation] = useState([])
 
-    const dispatch = useDispatch()
+    //logica de clickeo afuera de la ul
+    const ulRef = useRef(null)
+    clickOutside(ulRef, () => setRecommendation([]));
 
+    const dispatch = useDispatch()
     const allTemps = useSelector(state => state.allTemps)
 
     useEffect(() => {
@@ -44,9 +47,10 @@ export default function TempFilter() {
                     onInput={handleRecommendation}
                     placeholder='Filter by Temperament'
                     className={styles.inputFilter}
+                    autoComplete='off'
                 />
                 {recommendation.length > 0 && (
-                    <ul className={styles.recommendations}>
+                    <ul className={styles.recommendations} ref={ulRef} >
                         {recommendation.map((temp) => (
                             <li
                                 key={temp}
@@ -61,4 +65,15 @@ export default function TempFilter() {
             </div>
         </>
     )
+}
+
+function clickOutside(ref, handler) {
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (ref.current && !ref.current.contains(e.target)) {
+                handler()
+            }
+        }
+        document.addEventListener("click", handleClickOutside)
+    }, [ref, handler])
 }

@@ -1,6 +1,8 @@
 export function extractWeightValue(weight) {
     const [min] = weight.split(" - ");
-    return { min: parseInt(min) }
+    return {
+        min: parseInt(min),
+    }
 }
 
 export function compareWeight(a, b) {

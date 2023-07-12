@@ -84,11 +84,9 @@ const rootReducer = (state = initialState, action) => {
             }
         //POST
         case POST_DOGS:
-            const updatedDogs = [...state.allDogs]
-            upda
             return {
                 ...state,
-                allDogs: updatedDogs
+                allDogs: [...state.allDogs, action.payload]
             }
         default:
             return state

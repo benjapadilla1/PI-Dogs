@@ -54,11 +54,16 @@ export function getDogByName(name) {
 //POST
 export function postDog(dog) {
     return async function (dispatch) {
-        const { data } = await axios.post("http://localhost:3001/dogs", dog)
-        return dispatch({
-            type: POST_DOGS,
-            payload: data
-        })
+        try {
+            const { data } = await axios.post("http://localhost:3001/dogs", dog)
+            return dispatch({
+                type: POST_DOGS,
+                payload: data
+            })
+        }
+        catch (error) {
+            console.log("There was en error creating the dog", error)
+        }
     }
 }
 

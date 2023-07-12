@@ -5,10 +5,15 @@ import { BgDiv } from '../../styles/styledComponents'
 
 import { useNavigate } from "react-router-dom"
 
-import validate from "./formValidation"
+import { useDispatch } from 'react-redux'
+import { postDog } from '../../redux/Actions'
+import validate from "./helpers/formValidation"
+
 import BackButton from '../../components/utils/BackButton'
+import InputField from './helpers/InputField'
 
 export default function CreateDogForm() {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [dogData, setDogData] = useState({
         name: '',
@@ -28,14 +33,17 @@ export default function CreateDogForm() {
     })
 
     const handleChange = (e) => {
-        setDogData({ ...dogData, [e.target.name]: e.target.value })
-        setErrors(validate({ ...dogData, [e.target.name]: e.target.value }))
+        const { name, value } = e.target
+        setDogData({ ...dogData, [name]: value })
+        setErrors(validate({ ...dogData, [name]: value }))
     }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (!errors.name && !errors.height && !errors.weight && !errors.image && !errors.temperament && !errors.life_span) {
             alert("You have successfully created a new dog")
             navigate("/home")
+            dispatch(postDog(dogData))
         } else {
             alert("Incorrect Data")
         }
@@ -48,81 +56,54 @@ export default function CreateDogForm() {
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <h2 className={styles.title}>Create Dog</h2>
                     <div className={styles.inputContainer}>
-                        <label className={styles.label}>
-                            Name:
-                            <input
-                                type="text"
-                                name="name"
-                                value={dogData.name}
-                                onChange={handleChange}
-                                required
-                                className={styles.input}
-                            />
-                            {errors.name && <p className={styles.error}>{errors.name}</p>}
-                        </label>
-                        <label className={styles.label}>
-                            Height:
-                            <input
-                                type="text"
-                                name="height"
-                                value={dogData.height}
-                                onChange={handleChange}
-                                required
-                                className={styles.input}
-                            />
-                            {errors.height && <p className={styles.error}>{errors.height}</p>}
-                        </label>
-                        <label className={styles.label}>
-                            Weight:
-                            <input
-                                type="text"
-                                name="weight"
-                                value={dogData.weight}
-                                onChange={handleChange}
-                                required
-                                className={styles.input}
-                            />
-                            {errors.weight && <p className={styles.error}>{errors.weight}</p>}
-                        </label>
-
-                        <label className={styles.label}>
-                            Temperament:
-                            <input
-                                type="text"
-                                name="temperament"
-                                value={dogData.temperament}
-                                onChange={handleChange}
-                                required
-                                className={styles.input}
-                            />
-                            {errors.temperament && (
-                                <p className={styles.error}>{errors.temperament}</p>
-                            )}
-                        </label>
-                        <label className={styles.label}>
-                            Life Span:
-                            <input
-                                type="text"
-                                name="life_span"
-                                value={dogData.life_span}
-                                onChange={handleChange}
-                                required
-                                className={styles.input}
-                            />
-                            {errors.life_span && <p className={styles.error}>{errors.life_span}</p>}
-                        </label>
-                        <label className={styles.label}>
-                            Image URL:
-                            <input
-                                type="text"
-                                name="image"
-                                value={dogData.image}
-                                onChange={handleChange}
-                                required
-                                className={styles.input}
-                            />
-                            {errors.image && <p className={styles.error}>{errors.image}</p>}
-                        </label>
+                        <InputField
+                            label="Name"
+                            name="name"
+                            value={dogData.name}
+                            onChange={handleChange}
+                            required
+                            error={errors.name}
+                        />
+                        <InputField
+                            label="Height"
+                            name="height"
+                            value={dogData.height}
+                            onChange={handleChange}
+                            required
+                            error={errors.height}
+                        />
+                        <InputField
+                            label="Weight"
+                            name="weight"
+                            value={dogData.weight}
+                            onChange={handleChange}
+                            required
+                            error={errors.weight}
+                        />
+                        <InputField
+                            label="Temperament"
+                            name="temperament"
+                            value={dogData.temperament}
+                            onChange={handleChange}
+                            required
+                            error={errors.temperament}
+                        />
+                        <InputField
+                            label="Life Span"
+                            name="life_span"
+                            value={dogData.life_span}
+                            onChange={handleChange}
+                            required
+                            error={errors.life_span}
+                        />
+                        <InputField
+                            label="Image URL"
+                            name="image"
+                            value={dogData.image}
+                            onChange={handleChange}
+                            required
+                            error={errors.image}
+                        />
                     </div>
                     <button type="submit" className={styles.button}>
                         Create Dog

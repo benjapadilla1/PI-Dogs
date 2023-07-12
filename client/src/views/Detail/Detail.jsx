@@ -33,7 +33,7 @@ export default function Detail() {
                         </p>
                         <h2 className={styles.name}>Breed: {name}</h2>
                         <p className={styles.info}>
-                            <strong>Life Span:</strong> {life_span}
+                            <strong>Life Span:</strong> {life_span} years
                         </p>
                         <p className={styles.info}>
                             <strong>Height:</strong> {height} cm.

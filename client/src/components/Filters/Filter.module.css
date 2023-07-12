@@ -27,11 +27,18 @@
     font-weight: bold;
 }
 
+/* TEMPFILTER */
+
+.autocomplete {
+    position: relative;
+}
+
 .inputFilter {
     background-color: #f5f5f5;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 8px;
+    width: 70%;
 }
 
 .inputFilter::-webkit-input-placeholder {
@@ -45,10 +52,21 @@
 
 .recommendations {
     position: absolute;
+    top: 100%;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .list {
-    background-color: #f5f5f5;
+    list-style-type: none;
+    background-color: #fff;
     border-bottom: 1px solid #ccc;
     padding: 10px;
+    cursor: pointer;
+}
+
+.list:hover {
+    background-color: #f5f5f5;
 }
