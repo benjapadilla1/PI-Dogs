@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dogDetails {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.imageContainer {
+    margin-right: 20px;
+}
+
+.image {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.detailsContainer {
+    max-width: 500px;
+}
+
+.name {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.info {
+    margin-bottom: 5px;
+}
+
+.info strong {
+    font-weight: bold;
+}

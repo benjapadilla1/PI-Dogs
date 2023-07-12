@@ -1,0 +1,73 @@
+.searchBarContainer {
+    display: grid;
+    place-content: center;
+}
+
+.searchBar {
+    margin-top: 2rem;
+}
+
+.input {
+    width: 170px;
+    height: 40px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-right: 14px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.searchButton {
+    height: 40px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.searchButton:hover {
+    background-color: #0056b3;
+}
+
+.searchSpan {
+    width: 20px;
+    height: 20px;
+    background-image: url('../../assets/searchIcon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.divButtons {
+    margin-top: 5px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.createButton,
+.resetButton {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    outline: none;
+    width: 100px;
+    cursor: pointer;
+}
+
+.divFilters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}

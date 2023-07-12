@@ -1,0 +1,21 @@
+.navButtons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.navButtons button {
+    background-color: #f1f1f1;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: larger;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.navButtons button:hover {
+    background-color: #ddd;
+}

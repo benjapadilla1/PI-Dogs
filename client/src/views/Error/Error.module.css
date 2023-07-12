@@ -1,0 +1,98 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../assets/errorbg.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.9;
+}
+
+.content {
+    text-align: center;
+    z-index: 1;
+}
+
+.title {
+    text-align: center;
+    font-size: 4rem;
+    color: #fff;
+    margin-bottom: 2rem;
+    /* animation: glitch 2s ease-in-out infinite; */
+    animation: glitch 1s infinite;
+}
+
+.message {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.dialog {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 2rem;
+}
+
+.button {
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in;
+}
+
+.button:hover {
+    background-color: #f0f0f0;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translateX(0)
+    }
+
+    25% {
+        transform: translateX(-10px)
+    }
+
+    50% {
+        transform: translateX(10px)
+    }
+
+    75% {
+        transform: translateX(-10px)
+    }
+
+    100% {
+        transform: translateX(0)
+    }
+}
+
+/* @keyframes glitch {
+    0% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0;
+    }
+} */
