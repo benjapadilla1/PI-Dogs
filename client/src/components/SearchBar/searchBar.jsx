@@ -27,7 +27,18 @@ export default function searchBar() {
         dispatch(resetFilters())
     }
     return (
-        <div>
+        <>
+            <div className={styles.divFilters} >
+                <Orders />
+                <OriginFilter />
+                <TempFilter />
+            </div >
+            <div className={styles.divButtons}>
+                <Link to={"/create"}>
+                    <button className={styles.createButton}>Create</button>
+                </Link>
+                <button className={styles.resetButton} onClick={handleReset}>Reset Filters</button>
+            </div >
             <form className={styles.searchBarContainer} onSubmit={handleSubmit} >
                 <div className={styles.searchBar} >
                     <input
@@ -41,17 +52,7 @@ export default function searchBar() {
                     <button className={styles.searchButton} type="submit">Search</button>
                 </div>
             </form>
-            <div className={styles.divButtons}>
-                <Link to={"/create"}>
-                    <button className={styles.createButton}>Create</button>
-                </Link>
-                <button className={styles.resetButton} onClick={handleReset}>Reset Filters</button>
-            </div >
-            <div className={styles.divFilters} >
-                <Orders />
-                <OriginFilter />
-                <TempFilter />
-            </div >
-        </div >
+
+        </ >
     )
 }

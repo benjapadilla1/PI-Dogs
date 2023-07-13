@@ -1,23 +1,24 @@
 .selectBar {
     font-family: Arial, sans-serif;
-    font-size: 14px;
+    font-size: 1.3rem;
     padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 25px;
     background-color: #fff;
     color: #333;
     outline: none;
     width: 150px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .selectBar option {
-    font-size: 14px;
+    font-size: 1.2rem;
     padding: 8px;
 }
 
 .selectBar optgroup {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 1.2rem;
     color: #555;
     margin-top: 10px;
 }
@@ -34,11 +35,20 @@
 }
 
 .inputFilter {
-    background-color: #f5f5f5;
+    background-color: #fff;
     border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 8px;
-    width: 70%;
+    padding: 10px 12px;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    width: 90%;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.inputFilter:focus {
+    outline: none;
+    border-color: #446e9c;
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
 }
 
 .inputFilter::-webkit-input-placeholder {
@@ -52,8 +62,7 @@
 
 .recommendations {
     position: absolute;
-    top: 100%;
-    border-radius: 5px;
+    border-radius: 17px;
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -68,5 +77,6 @@
 }
 
 .list:hover {
+    transition: all 0.5s ease;
     background-color: #f5f5f5;
 }

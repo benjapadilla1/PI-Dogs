@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getDogById } from '../../redux/Actions'
 
 import styles from "./Detail.module.css"
-import { BgDiv, BgLoader } from '../../styles/styledComponents'
+import { BgDetailDiv, BgLoader } from '../../styles/styledComponents'
 import BackButton from '../../components/utils/BackButton'
 
 export default function Detail() {
@@ -20,7 +20,7 @@ export default function Detail() {
     if (dog === null) return <BgLoader />
     const { name, image, life_span, temperament, height, weight } = dog;
     return (
-        <BgDiv>
+        <BgDetailDiv>
             <div className={styles.container}>
                 <BackButton />
                 <div className={styles.dogDetails}>
@@ -31,9 +31,11 @@ export default function Detail() {
                         <p className={styles.info}>
                             <strong>Id:</strong> {id}
                         </p>
-                        <h2 className={styles.name}>Breed: {name}</h2>
                         <p className={styles.info}>
-                            <strong>Life Span:</strong> {life_span} years
+                            <strong>Breed: </strong> {name}
+                        </p>
+                        <p className={styles.info}>
+                            <strong>Life Span:</strong> {life_span}
                         </p>
                         <p className={styles.info}>
                             <strong>Height:</strong> {height} cm.
@@ -47,6 +49,6 @@ export default function Detail() {
                     </div>
                 </div>
             </div>
-        </BgDiv>
+        </BgDetailDiv>
     )
 }

@@ -1,12 +1,19 @@
+.backLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .backButton {
     padding: 10px 20px;
-    background-color: #fff;
+    background-color: rgba(84, 59, 20, 0.264);
     border: none;
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
     color: #333;
     cursor: pointer;
+    margin: 10px 0 10px 0;
 }
 
 .backButton:hover {

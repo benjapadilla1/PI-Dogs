@@ -84,12 +84,10 @@ export function getAllTemps() {
         })
     }
 }
-export function filterTemp(temperament, allTemps) {
+export function filterTemp(temperament) {
     return async function (dispatch) {
         try {
-            const filtedTemp = allTemps.filter((t) => t.toLowerCase().includes(temperament.toLowerCase()))
             const { data } = await axios("http://localhost:3001/dogs")
-            console.log(filtedTemp)
             const filtedDogs = data.dogs.filter((d) => d.temperament && d.temperament.toLowerCase().includes(temperament.toLowerCase()))
             return dispatch({
                 type: FILTEDTEMPER,

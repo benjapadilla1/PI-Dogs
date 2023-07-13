@@ -1,4 +1,4 @@
-const { Dog, Temperaments } = require("../db")
+const { Dog } = require("../db")
 
 async function createDog(req, res) {
     try {
@@ -18,13 +18,6 @@ async function createDog(req, res) {
             image,
             life_span,
         })
-        //Obtener los temperamentos por nombre
-        // const temperaments = await Temperaments.findAll({
-        //     where: {
-        //         name: temperament
-        //     }
-        // })
-        // const temperId = temperaments.map((t) => t.id)
         await newDog.addTemperaments(temperament)
         return res.status(201).json({ dog: newDog, })
     }

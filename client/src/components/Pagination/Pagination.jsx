@@ -14,6 +14,7 @@ export default function Pagination() {
     const lastIDog = currentPage * dogPerPage
     const firstIDog = lastIDog - dogPerPage
 
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -22,6 +23,8 @@ export default function Pagination() {
 
     const allDogs = useSelector(state => state.allDogs)
     const dogShown = allDogs.slice(firstIDog, lastIDog)
+
+    const totalPages = Math.ceil(allDogs.length / dogPerPage)
 
     function goFirst() {
         if (currentPage > 1) {
@@ -40,7 +43,6 @@ export default function Pagination() {
         }
     }
     function goLast() {
-        const totalPages = Math.ceil(allDogs.length / dogPerPage)
         if (totalPages) {
             setCurrentPage(totalPages)
         }
@@ -48,14 +50,20 @@ export default function Pagination() {
     if (!allDogs.length) return <BgLoader />
     return (
         <>
-            <Cards allDogs={dogShown} />
             <div className={styles.navButtons}>
-                <button onClick={goFirst} className={styles.button}>First</button>
                 <button onClick={goPrev} className={styles.button}>Prev</button>
                 <p className={styles.currentPage}>{currentPage}</p>
                 <button onClick={goNext} className={styles.button}>Next</button>
-                <button onClick={goLast} className={styles.button}>Last</button>
             </div>
+            <Cards allDogs={dogShown} />
+            <div className={styles.navButtons}>
+                {currentPage === 1 ? null
+                    : <button onClick={goFirst} className={styles.button}>First</button>
+                }
+                {currentPage === totalPages ? null
+                    : <button onClick={goLast} className={styles.button}>Last</button>
+                }
+            </div >
         </>
     )
 }

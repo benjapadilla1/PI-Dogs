@@ -8,6 +8,8 @@
 .button {
     background-color: #f5f5f5;
     border: 1px solid #ccc;
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
     color: #333;
     padding: 10px 20px;
     font-size: 16px;

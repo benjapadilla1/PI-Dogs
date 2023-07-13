@@ -3,35 +3,34 @@
     place-content: center;
 }
 
-.searchBar {
-    margin-top: 2rem;
-}
-
 .input {
-    width: 170px;
+    background-color: #fff;
+    width: 217px;
+    font-size: 1.1rem;
     height: 40px;
     padding: 4px;
     border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-right: 14px;
-    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    margin-right: 23px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
 }
 
 .searchButton {
     height: 40px;
     padding: 8px 16px;
-    background-color: #007bff;
+    background-color: rgba(84, 59, 20, 0.681);
     color: #fff;
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    font-size: 14px;
+    border-radius: 5px;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .searchButton:hover {
-    background-color: #0056b3;
+    background-color: rgba(84, 59, 20, 0.346);
 }
 
 .searchSpan {
@@ -55,18 +54,31 @@
 .createButton,
 .resetButton {
     font-family: Arial, sans-serif;
-    font-size: 14px;
+    margin: 10px 0 10px 0;
+    font-size: 1.1rem;
     padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 25px;
     background-color: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
     color: #333;
     outline: none;
-    width: 100px;
+    width: 150px;
     cursor: pointer;
 }
 
+.createButton:hover {
+    transition: all 0.3s ease;
+    background-color: rgb(106, 198, 255)
+}
+
+.resetButton:hover {
+    transition: all 0.3s ease;
+    background-color: rgba(255, 0, 0, 0.821)
+}
+
 .divFilters {
+    padding: 15px;
     display: flex;
     justify-content: center;
     gap: 15px;

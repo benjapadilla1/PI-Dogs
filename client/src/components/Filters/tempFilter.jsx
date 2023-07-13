@@ -23,7 +23,7 @@ export default function TempFilter() {
     const handleFilterByTemp = (e) => {
         let { value } = e.target
         setSearchedTemp(value)
-        dispatch(filterTemp(value, allTemps))
+        dispatch(filterTemp(value))
     }
 
     const handleRecommendation = (e) => {
@@ -45,21 +45,23 @@ export default function TempFilter() {
                     value={searchedTemp}
                     onChange={handleFilterByTemp}
                     onInput={handleRecommendation}
-                    placeholder='Filter by Temperament'
+                    placeholder='Filter by Temperament...'
                     className={styles.inputFilter}
                     autoComplete='off'
                 />
                 {recommendation.length > 0 && (
                     <ul className={styles.recommendations} ref={ulRef} >
-                        {recommendation.map((temp) => (
-                            <li
-                                key={temp}
-                                onClick={() => handleRecommendationClick(temp)}
-                                className={styles.list}
-                            >
-                                {temp}?
-                            </li>
-                        ))}
+                        {recommendation
+                            .sort((a, b) => a.localeCompare(b))
+                            .map((temp) => (
+                                <li
+                                    key={temp}
+                                    onClick={() => handleRecommendationClick(temp)}
+                                    className={styles.list}
+                                >
+                                    {temp}?
+                                </li>
+                            ))}
                     </ul>
                 )}
             </div>
