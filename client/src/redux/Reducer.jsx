@@ -1,4 +1,4 @@
-import { FILTEDORIGIN, FILTEDTEMPER, GETALLTEMPS, GET_DOGS, GET_DOG_BY_ID, GET_DOG_BY_NAME, ORDERBYNAME, ORDERBYWEIGHT, POST_DOGS, RESETFILTERS } from "./Actions"
+import { DELETE_DOG, FILTEDORIGIN, FILTEDTEMPER, GETALLTEMPS, GET_DOGS, GET_DOG_BY_ID, GET_DOG_BY_NAME, ORDERBYNAME, ORDERBYWEIGHT, POST_DOGS, RESETFILTERS } from "./Actions"
 import { compareWeight } from "./utils/weightAux"
 
 const initialState = {
@@ -10,7 +10,7 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
-
+        //GETS
         case GET_DOGS:
             return {
                 ...state,
@@ -87,6 +87,13 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allDogs: [...state.allDogs, action.payload]
+            }
+        //DELETE    
+        case DELETE_DOG:
+            const updatedDogs = state.allDogs.filter((dog) => dog.id !== action.payload)
+            return {
+                ...state,
+                allDogs: updatedDogs
             }
         default:
             return state

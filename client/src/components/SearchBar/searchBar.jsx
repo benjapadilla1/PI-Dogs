@@ -15,7 +15,9 @@ export default function searchBar() {
     const [search, setSearch] = useState("")
 
     const handleChange = (e) => {
-        setSearch(e.target.value)
+        if (!/\d/.test(e.target.value)) { //no permite ingreso de numeros
+            setSearch(e.target.value)
+        }
     }
 
     const handleSubmit = (e) => {
@@ -52,7 +54,6 @@ export default function searchBar() {
                     <button className={styles.searchButton} type="submit">Search</button>
                 </div>
             </form>
-
         </ >
     )
 }

@@ -14,8 +14,7 @@ async function getAllDogs(req, res) {
             }
         }) //Buscar perros de base de datos que incluyan el modelo temperaments
         const temperdbDog = dbDogs.map((dog) => {
-            const temperamentToMap = dog.Temperaments.map((temp) => ({ name: temp.name }))
-            const temperament = temperamentToMap.map((temp) => temp.name).join(", ")
+            const temperament = dog.Temperaments.map((temp) => temp.name).join(", ")
             return {
                 ...dog.toJSON(),
                 temperament
@@ -24,7 +23,6 @@ async function getAllDogs(req, res) {
 
         const apiDogs = transformDogData(data)
         const allDogs = [...temperdbDog, ...apiDogs]
-        // const allDogs = [...dbDogs, ...apiDogs]
 
         res.status(200).json({ dogs: allDogs })
     } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -9,15 +9,18 @@ import { BgDetailDiv, BgLoader } from '../../styles/styledComponents'
 import BackButton from '../../components/utils/BackButton'
 
 export default function Detail() {
+    const [loading, setLoading] = useState(true)
     const { id } = useParams()
     const dispatch = useDispatch()
 
     useEffect(() => {
+        setLoading(true)
         dispatch(getDogById(id))
-    }, [dispatch, id])
+            .then(() => setLoading(false))
+    }, [])
 
     const dog = useSelector(state => state.dogById)
-    if (dog === null) return <BgLoader />
+    if (loading) return <BgLoader />
     const { name, image, life_span, temperament, height, weight } = dog;
     return (
         <BgDetailDiv>

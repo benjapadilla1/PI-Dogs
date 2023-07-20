@@ -1,7 +1,7 @@
 .divCard {
     margin-top: 15px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, auto));
     place-content: center;
     grid-gap: 15px;
     animation: fadeIn 400ms ease-in;

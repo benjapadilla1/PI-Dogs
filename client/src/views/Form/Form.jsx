@@ -5,22 +5,23 @@ import { BgDiv } from '../../styles/styledComponents'
 
 import { useNavigate } from "react-router-dom"
 
-import { useDispatch } from 'react-redux'
-import { postDog } from '../../redux/Actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllDogs, postDog } from '../../redux/Actions'
 import validate from "./helpers/formValidation"
 
 import BackButton from '../../components/utils/BackButton'
 import InputField from './helpers/InputField'
+import TemperamentField from './helpers/temperamentField'
 
 export default function CreateDogForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const allTemps = useSelector(state => state.allTemps)
     const [dogData, setDogData] = useState({
         name: '',
         height: '',
         weight: '',
         image: '',
-        temperament: '',
         life_span: '',
     })
     const [errors, setErrors] = useState({
@@ -31,85 +32,109 @@ export default function CreateDogForm() {
         temperament: '',
         life_span: '',
     })
+    const [interacted, setInteracted] = useState(false) // Variable de estado para rastrear si se ha interactuado con los campos de entrada
+
+    const [selectedTemps, setSelectedTemps] = useState([])
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setDogData({ ...dogData, [name]: value })
-        setErrors(validate({ ...dogData, [name]: value }))
+        setInteracted(true)
+        setErrors(validate({ ...dogData, [name]: value }, selectedTemps))
+        console.log(dogData)
+    }
+    const handleTempChange = (temp) => {
+        setSelectedTemps(temp)
+        setErrors(validate(dogData, temp))
     }
 
+    const showButton = interacted && Object.values(errors).every((error) => !error)
+
+    const mappedTemps = selectedTemps.map((temp) => {
+        return allTemps.indexOf(temp) + 1
+    })
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (!errors.name && !errors.height && !errors.weight && !errors.image && !errors.temperament && !errors.life_span) {
-            alert("You have successfully created a new dog")
-            navigate("/home")
-            dispatch(postDog(dogData))
-        } else {
-            alert("Incorrect Data")
+        const dog = {
+            ...dogData,
+            temperament: mappedTemps
         }
+        dispatch(postDog(dog))
+            .then(() => {
+                console.log(dogData)
+                alert("You have successfully created a new dog")
+                navigate("/home")
+                dispatch(getAllDogs())
+            })
+            .catch(() => {
+                alert(`The dog with the name ${dogData.name} already exists`)
+            })
     }
-
     return (
-        <>
-            <BgDiv>
-                <BackButton />
-                <form className={styles.form} onSubmit={handleSubmit}>
-                    <h2 className={styles.title}>Create Dog</h2>
-                    <div className={styles.inputContainer}>
-                        <InputField
-                            label="Name"
-                            name="name"
-                            value={dogData.name}
-                            onChange={handleChange}
-                            required
-                            error={errors.name}
-                        />
-                        <InputField
-                            label="Height"
-                            name="height"
-                            value={dogData.height}
-                            onChange={handleChange}
-                            required
-                            error={errors.height}
-                        />
-                        <InputField
-                            label="Weight"
-                            name="weight"
-                            value={dogData.weight}
-                            onChange={handleChange}
-                            required
-                            error={errors.weight}
-                        />
-                        <InputField
-                            label="Temperament"
-                            name="temperament"
-                            value={dogData.temperament}
-                            onChange={handleChange}
-                            required
-                            error={errors.temperament}
-                        />
-                        <InputField
-                            label="Life Span"
-                            name="life_span"
-                            value={dogData.life_span}
-                            onChange={handleChange}
-                            required
-                            error={errors.life_span}
-                        />
-                        <InputField
-                            label="Image URL"
-                            name="image"
-                            value={dogData.image}
-                            onChange={handleChange}
-                            required
-                            error={errors.image}
-                        />
-                    </div>
-                    <button type="submit" className={styles.button}>
-                        Create Dog
-                    </button>
-                </form>
-            </BgDiv >
-        </>
+        <BgDiv>
+            <BackButton />
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <h2 className={styles.title}>Create Dog</h2>
+                <div className={styles.inputContainer}>
+                    <InputField
+                        label="Name"
+                        name="name"
+                        value={dogData.name}
+                        onChange={handleChange}
+                        required
+                        error={errors.name}
+                        placeholder="Name of the dog"
+                    />
+                    <InputField
+                        label="Height"
+                        name="height"
+                        value={dogData.height}
+                        onChange={handleChange}
+                        required
+                        error={errors.height}
+                        placeholder="Height specified in min - max (cm.)"
+                    />
+                    <InputField
+                        label="Weight"
+                        name="weight"
+                        value={dogData.weight}
+                        onChange={handleChange}
+                        required
+                        error={errors.weight}
+                        placeholder="Weight specified in min - max (kg.)"
+                    />
+                    <InputField
+                        label="Life Span"
+                        name="life_span"
+                        value={dogData.life_span}
+                        onChange={handleChange}
+                        required
+                        error={errors.life_span}
+                        placeholder="Life Span specified in min - max (years)"
+                    />
+                    <InputField
+                        label="Image URL"
+                        name="image"
+                        value={dogData.image}
+                        onChange={handleChange}
+                        required
+                        error={errors.image}
+                        placeholder="URL of the dog"
+                    />
+                    <TemperamentField
+                        selectedTemps={selectedTemps}
+                        onChange={handleTempChange}
+                        error={errors.temperament}
+                    />
+                </div>
+                {
+                    showButton && (
+                        <button type="submit" className={styles.button}>
+                            Create Dog
+                        </button>
+                    )
+                }
+            </form>
+        </BgDiv >
     )
 }

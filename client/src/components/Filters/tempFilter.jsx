@@ -35,6 +35,7 @@ export default function TempFilter() {
     const handleRecommendationClick = (recommendation) => {
         setSearchedTemp(recommendation)
         setRecommendation([])
+        dispatch(filterTemp(recommendation))
     }
     return (
         <>

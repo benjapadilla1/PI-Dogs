@@ -9,19 +9,18 @@ import { BgLoader } from '../../styles/styledComponents'
 import styles from "./Pagination.module.css"
 
 export default function Pagination() {
+    const dispatch = useDispatch()
     const [currentPage, setCurrentPage] = useState(1)
     const dogPerPage = 8
     const lastIDog = currentPage * dogPerPage
     const firstIDog = lastIDog - dogPerPage
 
-
-    const dispatch = useDispatch()
+    const allDogs = useSelector(state => state.allDogs)
 
     useEffect(() => {
-        dispatch(getAllDogs())
-    }, [dispatch])
+        !(allDogs.length) && dispatch(getAllDogs())
+    }, [])
 
-    const allDogs = useSelector(state => state.allDogs)
     const dogShown = allDogs.slice(firstIDog, lastIDog)
 
     const totalPages = Math.ceil(allDogs.length / dogPerPage)

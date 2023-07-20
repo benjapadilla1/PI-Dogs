@@ -1,6 +1,6 @@
 const axios = require("axios")
-const { Dog } = require("../db");
-const { transformDogById } = require("../utils/dataDog");
+const { Dog, Temperaments } = require("../db");
+const { transformDogAPIById, transformDogDBById } = require("../utils/dataDog");
 
 const URL = "https://api.thedogapi.com/v1/breeds/"
 
@@ -9,19 +9,24 @@ async function getDogById(req, res) {
         const { id } = req.params
         const isUUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/.test(id)
         if (isUUID) {
-            const dbDogs = await Dog.findOne({
-                where: { id: id }
+            const dbDog = await Dog.findOne({
+                where: { id: id },
+                include: {
+                    model: Temperaments,
+                    attributes: ["name"],
+                    through: { attributes: [] }
+                }
             })
-            if (dbDogs) {
-                return res.status(200).json({ dog: dbDogs })
+            if (dbDog) {
+                const dbDogRes = transformDogDBById(dbDog)
+                return res.status(200).json({ dog: dbDogRes })
             }
         }
-
         const { data } = await axios.get(URL)
         const apiDogs = data.find(dog => dog.id === parseInt(id))
         //enviar el resultado si se encontro en la API
         if (apiDogs) {
-            const apiDogsRes = transformDogById(apiDogs)
+            const apiDogsRes = transformDogAPIById(apiDogs)
             return res.status(200).json({ dog: apiDogsRes })
         }
         else {

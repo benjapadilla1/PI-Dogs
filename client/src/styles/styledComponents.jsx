@@ -12,7 +12,6 @@ export const BgHomeDiv = styled.div`
     background-image: url(${bg});
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
 `
 export const BgDetailDiv = styled.div`
     height: 100vh;
@@ -32,4 +31,16 @@ export const BgLoader = styled.div`
     background-image: url(${bgLoader});
     background-repeat: no-repeat;
     background-position: center;
+`
+
+export const DeleteButton = styled.button`
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    img{
+        padding: 10px;
+    }
+    img:hover {
+    background-color: #ff0000;
+    }
 `
