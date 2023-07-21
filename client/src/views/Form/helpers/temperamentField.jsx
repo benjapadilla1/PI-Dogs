@@ -84,7 +84,7 @@ export default function TemperamentField({ selectedTemps, onChange, error }) {
                         {selectedTemps.map((temp, i) => (
                             <span key={i}>
                                 {i > 0 && ", "}
-                                {temp} <button type='button' onClick={() => handleRemove(temp)} >&#10006;</button>
+                                {temp} <button type='button' style={{ backgroundColor: "red", cursor: "pointer" }} onClick={() => handleRemove(temp)} >&#10006;</button>
                             </span>
                         ))}
                         {error && <ErrorMessage message={error} />}
