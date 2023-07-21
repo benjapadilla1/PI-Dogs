@@ -10,7 +10,7 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
-        //GETS
+        //////////////////////////////// GETS ////////////////////////////////
         case GET_DOGS:
             return {
                 ...state,
@@ -35,7 +35,7 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 allTemps: action.payload
             }
-        //FILTERS
+        //////////////////////////////// FILTERS ////////////////////////////////
         case RESETFILTERS:
             return {
                 ...state,
@@ -57,7 +57,8 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 allDogs: action.payload,
             }
-        //ORDERS
+
+        //////////////////////////////// ORDERS ////////////////////////////////
         case ORDERBYNAME:
             const orderByName = [...state.allDogs]
             if (action.payload === "A") {
@@ -82,13 +83,13 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 allDogs: [...orderByWeight]
             }
-        //POST
+        //////////////////////////////// POST ////////////////////////////////
         case POST_DOGS:
             return {
                 ...state,
                 allDogs: [...state.allDogs, action.payload]
             }
-        //DELETE    
+        //////////////////////////////// DELETE ////////////////////////////////
         case DELETE_DOG:
             const updatedDogs = state.allDogs.filter((dog) => dog.id !== action.payload)
             return {

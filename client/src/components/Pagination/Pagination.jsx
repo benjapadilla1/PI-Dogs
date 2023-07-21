@@ -17,14 +17,17 @@ export default function Pagination() {
 
     const allDogs = useSelector(state => state.allDogs)
 
+    // Carga todos los perros al montar el componente, si aún no están cargados
     useEffect(() => {
         !(allDogs.length) && dispatch(getAllDogs())
     }, [])
 
     const dogShown = allDogs.slice(firstIDog, lastIDog)
 
+    //Se calcula el numero de paginas necesarias  
     const totalPages = Math.ceil(allDogs.length / dogPerPage)
 
+    // Funciones para navegar a la página anterior, siguiente, primera y última
     function goFirst() {
         if (currentPage > 1) {
             setCurrentPage(1)

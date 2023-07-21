@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 
+import { clickOutside } from '../../../components/Filters/tempFilter'
+
 import { useDispatch, useSelector } from "react-redux"
-import { getAllTemps, filterTemp } from '../../../redux/Actions'
+import { getAllTemps } from '../../../redux/Actions'
 
 import styles from "../Form.module.css"
 import ErrorMessage from './ErrorMessage'
@@ -16,15 +18,17 @@ export default function TemperamentField({ selectedTemps, onChange, error }) {
     const dispatch = useDispatch()
     const allTemps = useSelector(state => state.allTemps)
 
+    // Cargar los temperamentos al cargar el componente
     useEffect(() => {
         dispatch(getAllTemps())
     }, [dispatch])
 
-    const handleFilterByTemp = (e) => {
+    const handleChange = (e) => {
         let { value } = e.target
         setSearchedTemp(value)
     }
 
+    // Manejar el click en una recomendación para agregarla a los temperamentos seleccionados
     const handleRecommendation = (e) => {
         let { value } = e.target
         const filteredTemps = allTemps.filter((t) => t.toLowerCase().includes(value.toLowerCase()))
@@ -32,12 +36,20 @@ export default function TemperamentField({ selectedTemps, onChange, error }) {
     }
 
     const handleRecommendationClick = (recommendation) => {
-        const updatedTemps = [...selectedTemps, recommendation]
+        const exists = selectedTemps.includes(recommendation)
+        if (!exists) {
+            const updatedTemps = [...selectedTemps, recommendation]
+            onChange(updatedTemps)
+            setSearchedTemp("")
+            setRecommendation([])
+        } else {
+            alert("Temperament repeated")
+        }
+    }
+    //Funcion para borrar el temperamento agregado
+    const handleRemove = (temp) => {
+        const updatedTemps = selectedTemps.filter((t) => t !== temp)
         onChange(updatedTemps)
-        setSearchedTemp("")
-        setRecommendation([])
-        dispatch(filterTemp(recommendation))
-        console.log(selectedTemps)
     }
     return (
         <>
@@ -47,7 +59,7 @@ export default function TemperamentField({ selectedTemps, onChange, error }) {
                         type="text"
                         id='temperImput'
                         value={searchedTemp}
-                        onChange={handleFilterByTemp}
+                        onChange={handleChange}
                         onInput={handleRecommendation}
                         placeholder='Temperament search...'
                         className={styles.inputFilter}
@@ -72,7 +84,7 @@ export default function TemperamentField({ selectedTemps, onChange, error }) {
                         {selectedTemps.map((temp, i) => (
                             <span key={i}>
                                 {i > 0 && ", "}
-                                {temp} <button type='button'>&#10006;</button>
+                                {temp} <button type='button' onClick={() => handleRemove(temp)} >&#10006;</button>
                             </span>
                         ))}
                         {error && <ErrorMessage message={error} />}
@@ -81,15 +93,4 @@ export default function TemperamentField({ selectedTemps, onChange, error }) {
             </div>
         </>
     )
-}
-
-function clickOutside(ref, handler) {
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (ref.current && !ref.current.contains(e.target)) {
-                handler()
-            }
-        }
-        document.addEventListener("click", handleClickOutside)
-    }, [ref, handler])
 }

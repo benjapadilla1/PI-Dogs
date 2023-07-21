@@ -9,14 +9,16 @@ import { BgDetailDiv, BgLoader } from '../../styles/styledComponents'
 import BackButton from '../../components/utils/BackButton'
 
 export default function Detail() {
+    // Estado local para del estado de carga del perro
     const [loading, setLoading] = useState(true)
     const { id } = useParams()
     const dispatch = useDispatch()
 
     useEffect(() => {
         setLoading(true)
+        //Obtener el detalle del perro mediante la id del params
         dispatch(getDogById(id))
-            .then(() => setLoading(false))
+            .then(() => setLoading(false)) // Una vez que la acción se completa, cambiar el estado de loading a false
     }, [])
 
     const dog = useSelector(state => state.dogById)

@@ -13,6 +13,7 @@ async function getAllDogs(req, res) {
                 through: { attributes: [] }
             }
         }) //Buscar perros de base de datos que incluyan el modelo temperaments
+        //Los temperaments los pasa a "temperament"
         const temperdbDog = dbDogs.map((dog) => {
             const temperament = dog.Temperaments.map((temp) => temp.name).join(", ")
             return {

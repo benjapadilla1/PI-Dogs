@@ -14,14 +14,6 @@ async function getAllTemperaments(req, res) {
                 dataTemp.push(...dogTemper)
             }
         })
-        const uniqueTemp = Array.from(new Set(dataTemp))
-        await Promise.all(uniqueTemp.map((temp) => {
-            Temperaments.findOrCreate({
-                where: {
-                    name: temp
-                },
-            })
-        }))
         const allTemp = await Temperaments.findAll()
         res.status(200).json({ temperaments: allTemp })
     } catch (error) {

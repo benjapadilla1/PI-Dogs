@@ -18,6 +18,7 @@ export const RESETFILTERS = "RESETFILTERS"
 export const ORDERBYNAME = "ORDERBYNAME"
 export const ORDERBYWEIGHT = "ORDERBYWEIGHT"
 
+//////////////////////////////// GETS ////////////////////////////////
 export function getAllDogs() {
     return async function (dispatch) {
         const { data } = await axios.get(URL)
@@ -56,12 +57,11 @@ export function getDogByName(name) {
         }
     }
     catch (error) {
-        alert(`The dog with the name ${name} was not found`)
-        throw error
+        console.error(`The dog with the name ${name} was not found`)
     }
 }
 
-//POST
+//////////////////////////////// POST ////////////////////////////////
 export function postDog(dog) {
     return async function (dispatch) {
         try {
@@ -78,7 +78,8 @@ export function postDog(dog) {
     }
 }
 
-//DELETE 
+//////////////////////////////// DELETE ////////////////////////////////
+
 export function deleteDog(id) {
     return async function (dispatch) {
         try {
@@ -92,8 +93,7 @@ export function deleteDog(id) {
         }
     }
 }
-
-//FILTERS
+//////////////////////////////// FILTERS ////////////////////////////////
 export function resetFilters() {
     return {
         type: RESETFILTERS,
@@ -138,7 +138,7 @@ export function filterOrigin(origin) {
     }
 }
 
-//ORDERS
+//////////////////////////////// ORDERS ////////////////////////////////
 
 export function orderByWeight(weight) {
     return {

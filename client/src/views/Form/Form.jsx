@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import styles from './Form.module.css'
-import { BgDiv } from '../../styles/styledComponents'
+import { BgForm } from '../../styles/styledComponents'
 
 import { useNavigate } from "react-router-dom"
 
@@ -17,6 +17,7 @@ export default function CreateDogForm() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const allTemps = useSelector(state => state.allTemps)
+
     const [dogData, setDogData] = useState({
         name: '',
         height: '',
@@ -32,7 +33,9 @@ export default function CreateDogForm() {
         temperament: '',
         life_span: '',
     })
-    const [interacted, setInteracted] = useState(false) // Variable de estado para rastrear si se ha interactuado con los campos de entrada
+
+    // rastrear si se ha interactuado con los inputs
+    const [interacted, setInteracted] = useState(false)
 
     const [selectedTemps, setSelectedTemps] = useState([])
 
@@ -40,21 +43,25 @@ export default function CreateDogForm() {
         const { name, value } = e.target
         setDogData({ ...dogData, [name]: value })
         setInteracted(true)
+        // Validar los datos actualizados del formulario y los temperamentos seleccionados
         setErrors(validate({ ...dogData, [name]: value }, selectedTemps))
-        console.log(dogData)
     }
     const handleTempChange = (temp) => {
+        // Verificar si el temperamento ya existe en el array de temperamentos seleccionados
         setSelectedTemps(temp)
         setErrors(validate(dogData, temp))
     }
 
+    // Variable para determinar el cursor y el bgc el botón de envío del formulario
     const showButton = interacted && Object.values(errors).every((error) => !error)
 
+    // Mapear los temperamentos seleccionados a los índices correspondientes en el array allTemps
     const mappedTemps = selectedTemps.map((temp) => {
         return allTemps.indexOf(temp) + 1
     })
     const handleSubmit = (e) => {
         e.preventDefault()
+        // Crear el objeto dog con los datos del formulario y los temperamentos seleccionados
         const dog = {
             ...dogData,
             temperament: mappedTemps
@@ -71,7 +78,7 @@ export default function CreateDogForm() {
             })
     }
     return (
-        <BgDiv>
+        <BgForm>
             <BackButton />
             <form className={styles.form} onSubmit={handleSubmit}>
                 <h2 className={styles.title}>Create Dog</h2>
@@ -127,14 +134,14 @@ export default function CreateDogForm() {
                         error={errors.temperament}
                     />
                 </div>
-                {
-                    showButton && (
-                        <button type="submit" className={styles.button}>
-                            Create Dog
-                        </button>
-                    )
-                }
+                <button type="submit"
+                    className={styles.button}
+                    style={{ cursor: !showButton ? "not-allowed" : "pointer", backgroundColor: !showButton ? "grey" : 'green' }}
+                    disabled={!showButton}
+                >
+                    Create Dog
+                </button>
             </form>
-        </BgDiv >
+        </BgForm >
     )
 }

@@ -17,14 +17,17 @@ export default function searchBar() {
     const handleChange = (e) => {
         if (!/\d/.test(e.target.value)) { //no permite ingreso de numeros
             setSearch(e.target.value)
+        } else {
+            alert("You cannot enter a number")
         }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(getDogByName(search))
+        dispatch(getDogByName(search)) //estado local
         setSearch("")
     }
+
     const handleReset = () => {
         dispatch(resetFilters())
     }

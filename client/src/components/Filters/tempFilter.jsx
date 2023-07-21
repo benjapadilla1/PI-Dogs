@@ -7,10 +7,12 @@ import styles from "./Filter.module.css"
 
 export default function TempFilter() {
     const [searchedTemp, setSearchedTemp] = useState("")
+    // Estado para almacenar las sugerencias 
     const [recommendation, setRecommendation] = useState([])
 
-    //logica de clickeo afuera de la ul
+    //Logica de clickeo afuera de la ul
     const ulRef = useRef(null)
+    //logica para cerrar las sugerencias 
     clickOutside(ulRef, () => setRecommendation([]));
 
     const dispatch = useDispatch()
@@ -18,23 +20,27 @@ export default function TempFilter() {
 
     useEffect(() => {
         dispatch(getAllTemps())
-    }, [dispatch])
+    }, [])
 
-    const handleFilterByTemp = (e) => {
+    const handleChange = (e) => {
         let { value } = e.target
         setSearchedTemp(value)
+        // Filtra los perros segun el temperamento seleccionado
         dispatch(filterTemp(value))
     }
 
+    //obtener sugerencias de temperamentos filtrados en mientras se escribe
     const handleRecommendation = (e) => {
         let { value } = e.target
         const filteredTemps = allTemps.filter((t) => t.toLowerCase().includes(value.toLowerCase()))
         setRecommendation(filteredTemps)
     }
 
+    //aplica un temperamento sugerido 
     const handleRecommendationClick = (recommendation) => {
         setSearchedTemp(recommendation)
         setRecommendation([])
+        // Filtra los perros segun el temperamento seleccionado
         dispatch(filterTemp(recommendation))
     }
     return (
@@ -44,7 +50,7 @@ export default function TempFilter() {
                     type="text"
                     id='temperImput'
                     value={searchedTemp}
-                    onChange={handleFilterByTemp}
+                    onChange={handleChange}
                     onInput={handleRecommendation}
                     placeholder='Filter by Temperament...'
                     className={styles.inputFilter}
@@ -70,7 +76,7 @@ export default function TempFilter() {
     )
 }
 
-function clickOutside(ref, handler) {
+export function clickOutside(ref, handler) {
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (ref.current && !ref.current.contains(e.target)) {
